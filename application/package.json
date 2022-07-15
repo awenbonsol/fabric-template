@@ -1,0 +1,22 @@
+{
+  "name": "bakas-node-app",
+  "version": "1.0.0",
+  "description": "A node app interacting with the chaincode.",
+  "main": "app.js",
+  "scripts": {
+    "start": "nodemon app.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
+    "fabric-ca-client": "^2.2.4",
+    "fabric-network": "^2.2.10",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.19"
+  }
+}
