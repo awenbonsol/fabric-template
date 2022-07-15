@@ -1,0 +1,270 @@
+{
+	"info": {
+		"_postman_id": "321e7f63-b3c1-4625-a0e5-895c1ea39bcb",
+		"name": "fabric-template-github",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "CreatePerson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"firstName\": \"Darwin\",\r\n    \"lastName\": \"Bonsol\",\r\n    \"age\": 27,\r\n    \"nationalId\": \"1000000000\",\r\n    \"socialMediaAccounts\": [\r\n        {\r\n            \"websiteUrl\": \"www.test01.com\",\r\n            \"dateCreated\": \"04/21/2022\"\r\n        },\r\n        {\r\n            \"websiteUrl\": \"www.bing.com\",\r\n            \"dateCreated\": \"04/27/2022\"\r\n        }\r\n    ],\r\n    \"isMarried\": false\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/create",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"create"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "UpdatePerson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"nationalId\": \"1000000000\",\r\n    \"lastName\": \"Driodoco\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByNationalId",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/get-id?nationalId=1000000000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"get-id"
+					],
+					"query": [
+						{
+							"key": "nationalId",
+							"value": "1000000000"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByFirstName",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/get-firstName?firstName=Darwin",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"get-firstName"
+					],
+					"query": [
+						{
+							"key": "firstName",
+							"value": "Darwin"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByLastName",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/get-lastName?lastName=Driodoco&isMarried=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"get-lastName"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Driodoco"
+						},
+						{
+							"key": "isMarried",
+							"value": "true"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetAll",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/get-all",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"get-all"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Driodoco",
+							"disabled": true
+						},
+						{
+							"key": "isMarried",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "DeletePerson",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"key\": \"1000000000\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/api/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"api",
+						"delete"
+					],
+					"query": [
+						{
+							"key": "lastName",
+							"value": "Driodoco",
+							"disabled": true
+						},
+						{
+							"key": "isMarried",
+							"value": "true",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
