@@ -38,7 +38,7 @@ func TestCreatePersonPositiveScenario(t *testing.T) {
 	}
 
 	samplechaincode := main.SmartContract{}
-	err := samplechaincode.CreatePerson(transactionContext, mockPerson)
+	_, err := samplechaincode.CreatePerson(transactionContext, mockPerson)
 	require.NoError(t, err)
 }
 
@@ -69,7 +69,7 @@ func TestCreatePersonNegativeScenario(t *testing.T) {
 	}
 
 	samplechaincode := main.SmartContract{}
-	err := samplechaincode.CreatePerson(transactionContext, mockPerson)
+	_, err := samplechaincode.CreatePerson(transactionContext, mockPerson)
 	require.EqualError(t, err, "national id 100000000000000 must not exceed 12 characters")
 }
 
@@ -104,7 +104,7 @@ func TestUpdatePersonPositiveScenario(t *testing.T) {
 
 	chaincodeStub.GetStateReturns(bytes, nil)
 	samplechaincode := main.SmartContract{}
-	err = samplechaincode.UpdatePerson(transactionContext, "100000000000", "Driodoco")
+	_, err = samplechaincode.UpdatePerson(transactionContext, "100000000000", "Driodoco")
 	require.NoError(t, err)
 }
 
@@ -139,11 +139,11 @@ func TestUpdatePersonNegativeScenario(t *testing.T) {
 
 	chaincodeStub.GetStateReturns(nil, fmt.Errorf("failed retrieving all finance request"))
 	samplechaincode := main.SmartContract{}
-	err = samplechaincode.UpdatePerson(transactionContext, "100000000000", "Driodoco")
+	_, err = samplechaincode.UpdatePerson(transactionContext, "100000000000", "Driodoco")
 	require.EqualError(t, err, "GetByNationalId: failed to read from world state: failed retrieving all finance request")
 
 	chaincodeStub.GetStateReturns(nil, nil)
-	err = samplechaincode.UpdatePerson(transactionContext, "100000000000", "Driodoco")
+	_, err = samplechaincode.UpdatePerson(transactionContext, "100000000000", "Driodoco")
 	require.EqualError(t, err, "GetByNationalId: the person 100000000000 does not exist")
 }
 

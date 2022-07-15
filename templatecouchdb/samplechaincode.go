@@ -42,23 +42,23 @@ const (
 
 // CREATE PERSON
 func (s *SmartContract) CreatePerson(ctx contractapi.TransactionContextInterface,
-	person Person) error {
+	person Person) (string, error) {
 
 	logger := logging.NewLogger("samplechaincode")
 	logger.Infoln("Start: Calling CreatePerson function.")
 
 	if len(person.NationalID) > 12 {
-		return fmt.Errorf("national id %s must not exceed 12 characters", person.NationalID)
+		return "error", fmt.Errorf("national id %s must not exceed 12 characters", person.NationalID)
 	}
 
 	key := person.NationalID
 	isExist, err := s.IsExists(ctx, key)
 	if err != nil {
-		return err
+		return "error", err
 	}
 
 	if isExist {
-		return fmt.Errorf("CreatePerson: the person %s is already existing. ", key)
+		return "error", fmt.Errorf("CreatePerson: the person %s is already existing. ", key)
 	}
 
 	person = Person{
@@ -72,22 +72,27 @@ func (s *SmartContract) CreatePerson(ctx contractapi.TransactionContextInterface
 
 	personAsBytes, err := json.Marshal(person)
 	if err != nil {
-		return fmt.Errorf("CreatePerson: unable to Marshal %s ", personAsBytes)
+		return "error", fmt.Errorf("CreatePerson: unable to Marshal %s ", personAsBytes)
 	}
 
-	return ctx.GetStub().PutState(key, personAsBytes)
+	err = ctx.GetStub().PutState(key, personAsBytes)
+	if err != nil {
+		return "error", fmt.Errorf("CreatePerson: unable to invoke function %s ", personAsBytes)
+	}
+
+	return ctx.GetStub().GetTxID(), nil
 }
 
 // UPDATE PERSON
 func (s *SmartContract) UpdatePerson(ctx contractapi.TransactionContextInterface,
-	nationalId string, lastName string) error {
+	nationalId string, lastName string) (string, error) {
 
 	logger := logging.NewLogger("samplechaincode")
 	logger.Infoln("Start: Calling UpdatePerson function.")
 
 	queryResult, err := s.GetByNationalId(ctx, nationalId)
 	if err != nil {
-		return err
+		return "error",err
 	}
 
 	queryResult.LastName = lastName
@@ -95,10 +100,15 @@ func (s *SmartContract) UpdatePerson(ctx contractapi.TransactionContextInterface
 
 	personAsBytes, err := json.Marshal(queryResult)
 	if err != nil {
-		return fmt.Errorf("UpdatePerson: unable to Marshal %s ", personAsBytes)
+		return "error",fmt.Errorf("UpdatePerson: unable to Marshal %s ", personAsBytes)
 	}
 
-	return ctx.GetStub().PutState(nationalId, personAsBytes)
+	err = ctx.GetStub().PutState(nationalId, personAsBytes)
+	if err != nil {
+		return "error", fmt.Errorf("UpdatePerson: unable to invoke function %s ", personAsBytes)
+	}
+
+	return ctx.GetStub().GetTxID(), nil
 }
 
 // GET BY NATIONAL ID
